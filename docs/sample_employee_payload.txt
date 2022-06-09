@@ -1,0 +1,44 @@
+
+# create employee
+  mutation ($empName:String!, $empCity:String!, $empOfficeVenue:String!, $empDOJ:Date, $empDescription:String!,$empCategory:String!){
+  createEmployee(empName: $empName, empCity: $empCity, empOfficeVenue: $empOfficeVenue, empDOJ: $empDOJ, empDescription: $empDescription, empCategory: $empCategory) {
+    employee {
+      empName: empName
+      empCity: empCity
+      empOfficeVenue: empOfficeVenue
+      empDOJ: empDOJ
+      empDescription: empDescription
+      empCategory: empCategory
+      empID
+    }
+  }
+}
+
+
+
+# Read data
+query{
+  allEmployees{
+    empID
+    empName
+    empCity
+    empOfficeVenue
+  }
+}
+
+# Update data
+mutation firstupdatemutation{
+  updateEmployee(empID:102, empName:"Divaker"){
+    employee{
+      empName:empName
+    }
+  }
+}
+
+# Delete data
+mutation firstupdatemutation{
+  deleteEmployee(empID:102){
+    employee{
+    }
+  }
+}

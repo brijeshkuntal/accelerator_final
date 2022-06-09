@@ -1,0 +1,61 @@
+# register user
+mutation{
+  register(
+    email:"user@user.com",
+    username:"user",
+    password:"Divaker@1221",
+    displayName: "Divaker soni"
+  ){
+    success,token, refreshToken, user{username,displayName,email}
+  }
+}
+
+# Verify account
+mutation{
+  verifyAccount(token: "eyJ1c2VybmFtZSI6InVzZXI2IiwiYWN0aW9uIjoiYWN0aXZhdGlvbiJ9:1nP169:kqf2Cl0HT-DtuwO-DiX21nfvMGE"){
+    success,
+    errors
+  }
+}
+
+# login mutation
+mutation{
+  tokenAuth(username:"user5", password:"Divaker@1221"){
+    success,
+    token,
+    errors,
+    refreshToken,
+    user{
+      username, email
+    }
+  }
+}
+
+# update user
+mutation{
+  updateAccount(
+      firstName:"admin1"
+    ){
+    success,
+    errors
+  }
+}
+
+# get referesh token
+mutation{
+  refreshToken(refreshToken: "e6f838ad7c8bc9e1a72b55ea1523c42624cb4ec0"){
+    token,
+    success,
+    errors
+
+  }
+}
+
+# get user info
+query{
+  me{
+    username,
+    email,
+    displayName
+  }
+}
