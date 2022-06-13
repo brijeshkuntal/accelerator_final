@@ -11,35 +11,36 @@ import json
 
 
 def verify_token(request):
+    """
+    This method is used to verify the token for user.
+    """
     JWT_authenticator = JWTAuthentication()
     response = JWT_authenticator.authenticate(request)
     if not response:
         return Response({
             "message": "Token can not be blank."
         }, status=status.HTTP_400_BAD_REQUEST)
-    print(response)
     request.user = response[0]
 
 class EmployeeList(APIView):
     """
-    List all snippets, or create a new snippet.
+    This class is used to vreate new employee.
     """
     def post(self, request, format=None):
         verify_token(request)
         #request.data["empOrg"] = request.tenant.name
         serializer = EmployeeSerializer(data=request.data)
-        print(serializer)
         try:
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
-            print(e)
+            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class EmployeeDetail(APIView):
     """
-    Retrieve, update or delete a snippet instance.
+    Retrieve, update or delete a employee instance.
     """
     def get_object(self, pk):
         try:
@@ -79,6 +80,10 @@ class EmployeeDetail(APIView):
 
 @api_view(['GET'])
 def get_users(request):
+    '''
+    This method accept only get request. And
+    it provides the list of employees.
+    '''
     verify_token(request)
     emp_obj=Employee.objects.all()
     emp_list = []
@@ -92,7 +97,7 @@ def get_users(request):
             "empCity":obj.empCity,
             "empOfficeVenue":obj.empOfficeVenue
         }
-        #serializer = EmployeeSerializer(obj)
+        # serializer = EmployeeSerializer(obj)
         emp_list.append(data)
     return Response(emp_list,status=status.HTTP_200_OK)
 

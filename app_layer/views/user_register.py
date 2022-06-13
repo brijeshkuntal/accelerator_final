@@ -8,6 +8,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 
 def get_tokens_for_user(user):
+    """
+    This method is used to verify jwt token for user.
+    """
     refresh = RefreshToken.for_user(user)
 
     return {
@@ -17,7 +20,12 @@ def get_tokens_for_user(user):
 
 class UserRegistrationView(APIView):
     """
-    List all snippets, or create a new snippet.
+    This class is used to register a new user.
+    params:
+    username- username for user. It must be unique.
+    email- email for user.
+    display_name- display name for user.
+    password- password for user.
     """
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)
