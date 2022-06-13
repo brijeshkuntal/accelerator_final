@@ -16,13 +16,9 @@ def verify_token(request):
     """
     This method is used to verify the token for user.
     """
-    print("1")
     token = request.META.get("HTTP_AUTHORIZATION")
-    print("token", token)
     jwt_verifier = AccessTokenVerifier(issuer='https://dev-56353795.okta.com/oauth2/default', audience='api://default')
-    print("jwt_verifier", jwt_verifier)
     result = jwt_verifier.verify(token.split(" ")[1])
-    print("result", result, dir(result))
     # JWT_authenticator = JWTAuthentication()
     # response = JWT_authenticator.authenticate(request)
     # if not response:
