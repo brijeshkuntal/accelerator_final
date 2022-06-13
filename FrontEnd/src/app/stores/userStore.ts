@@ -22,7 +22,8 @@ export default class UserStore {
       const user = await agent.Account.login(creds);
       store.commonStore.setUser(user);
       runInAction(() => (this.user = user));
-      history.push("/employee");
+      //history.push("/employee");
+      history.push("/");
       store.modalStore.closeModal();
     } catch (error) {
       throw error;
