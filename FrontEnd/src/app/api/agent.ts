@@ -6,6 +6,7 @@ import { sleep } from "../common/utils/common";
 import { Employee } from "../models/employee";
 import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
+import LoginConfigJSON from "./../../loginConfig.json";
 
 /* base url for the api requests */
 const baseUrl = "http://nagarro.test.com:8000";
@@ -16,25 +17,33 @@ const axiosInstance = axios.create({
 
 /*request interceptor method => to be run before sending each api request*/
 axiosInstance.interceptors.request.use(async (config: any) => {
-  const user = store.commonStore.user;
-  if (user) {
-    let { access, refresh } = user;
+  if (!LoginConfigJSON.isOktaLoginEnabled) {
+    const user = store.commonStore.user;
+    if (user) {
+      let { access, refresh } = user;
 
-    const decodeJWT: any = jwtDecode(access);
+      const decodeJWT: any = jwtDecode(access);
 
-    /* checking expired jwt token.
+      /* checking expired jwt token.
      if expired, getting new jwt token  */
-    if (new Date() > new Date(decodeJWT.exp * 1000)) {
-      const refreshResponse = await axios.post(
-        `${baseUrl}/api/token/refresh/`,
-        { refresh }
-      );
-      access = refreshResponse.data.access;
-      store.commonStore.setUser({ ...user, access });
-    }
+      if (new Date() > new Date(decodeJWT.exp * 1000)) {
+        const refreshResponse = await axios.post(
+          `${baseUrl}/api/token/refresh/`,
+          { refresh }
+        );
+        access = refreshResponse.data.access;
+        store.commonStore.setUser({ ...user, access });
+      }
 
-    /* adding jwt token to the request headers */
-    config.headers.Authorization = `Bearer ${access}`;
+      /* adding jwt token to the request headers */
+      config.headers.Authorization = `Bearer ${access}`;
+    }
+  } else {
+    /* const oktaTokenStorage: any = JSON.parse(
+      localStorage.getItem("okta-token-storage") || ""
+    );
+    if (oktaTokenStorage.accessToken) 
+      config.headers.Authorization = `Bearer ${oktaTokenStorage.accessToken.accessToken}`; */
   }
   return config;
 });
@@ -66,7 +75,7 @@ axiosInstance.interceptors.response.use(
         break;
       case 401:
         toast.error("unauthorised.please relogin");
-        store.userStore.logout();
+        // store.userStore.logout();
         break;
       case 404:
         history.push("/not-found");
