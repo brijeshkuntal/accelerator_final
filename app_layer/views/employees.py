@@ -28,7 +28,6 @@ class EmployeeList(APIView):
     """
     def post(self, request, format=None):
         verify_token(request)
-        #request.data["empOrg"] = request.tenant.name
         serializer = EmployeeSerializer(data=request.data)
         try:
             if serializer.is_valid():

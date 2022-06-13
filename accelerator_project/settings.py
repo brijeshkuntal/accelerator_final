@@ -45,6 +45,7 @@ TENANT_APPS = [
     'django.contrib.admin',
     "django.contrib.auth",
     "rest_framework",
+    'okta_oauth2.apps.OktaOauth2Config',
 ]
 
 INSTALLED_APPS = [
@@ -60,11 +61,14 @@ INSTALLED_APPS = [
     'app_layer',
     'django_filters',
     'rest_framework_simplejwt',
+    'okta_oauth2.apps.OktaOauth2Config',
 ]
 
 TENANT_MODEL = "multitenant_app.Client"
 
 TENANT_DOMAIN_MODEL = "multitenant_app.Domain"
+
+
 
 MIDDLEWARE = [
     # 'multitenant_app.middleware.verify_host_middleware.VerifyHostMiddleware',
@@ -77,8 +81,23 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'okta_oauth2.middleware.OktaMiddleware',
 ]
 
+OKTA_AUTH = {
+    "ORG_URL": "https://dev-56353795-admin.okta.com/",
+    "ISSUER": "https://dev-56353795-admin.okta.com/oauth2/default",
+    "CLIENT_ID": "0oa5c2cykwUgounjI5d7",
+    "CLIENT_SECRET": "9J0c9Vvuy2sHUCcf67JfuCKo-awHPNqUv9eFzj7o",
+    "SCOPES": "openid profile email offline_access", # this is the default and can be omitted
+    "REDIRECT_URI": "http://test.example.com:8000/accounts/oauth2/callback",
+    "LOGIN_REDIRECT_URL": "/", # default
+    "CACHE_PREFIX": "okta", # default
+    "CACHE_ALIAS": "default", # default
+    "PUBLIC_NAMED_URLS": (), # default
+    "PUBLIC_URLS": (), # default
+    "USE_USERNAME": False, # default
+}
 
 # ROOT_URLCONF = "tenant_tutorial.urls_tenants"
 # PUBLIC_SCHEMA_URLCONF = "tenant_tutorial.urls_public"
@@ -195,6 +214,7 @@ AUTHENTICATION_BACKENDS = [
 #     "graphql_jwt.backends.JSONWebTokenBackend",
 #     "graphql_auth.backends.GraphQLAuthBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "okta_oauth2.backend.OktaBackend",
 ]
 
 # Auth User Model
