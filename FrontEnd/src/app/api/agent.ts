@@ -75,7 +75,7 @@ axiosInstance.interceptors.response.use(
         break;
       case 401:
         toast.error("unauthorised.please relogin");
-        // store.userStore.logout();
+        store.userStore.logout();
         break;
       case 404:
         history.push("/not-found");

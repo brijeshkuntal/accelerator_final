@@ -24,7 +24,7 @@ export default observer(
       } else {
         setIsLoggedIn(userStore.isLoggedIn);
       }
-    }, [props.oktaAuth, props.authState, userStore.isLoggedIn]);
+    }, [props.authState, userStore.isLoggedIn, isOktaLoginEnabled]);
 
     return (
       <Segment inverted textAlign="center" vertical className="masthead">

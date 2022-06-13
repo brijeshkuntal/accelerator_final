@@ -3,9 +3,7 @@ import { Container } from "semantic-ui-react";
 import NavBar from "./NavBar";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
-import { ToastContainer } from "react-toastify";
 import NotFound from "../../features/errors/NotFound";
-import ModalContainer from "../common/modals/ModalContainer";
 import EmpDashboard from "../../features/employees/dashboard/EmpDashboard";
 import EmpDetails from "../../features/employees/details/EmpDetails";
 import EmpForm from "../../features/employees/form/EmpForm";
@@ -34,8 +32,6 @@ function WithoutOktaAuthPage(props: Props) {
 
   return (
     <>
-      <ToastContainer position="bottom-right" hideProgressBar />
-      <ModalContainer />
       <Route exact path="/" component={HomePage} />
       {userStore.isLoggedIn ? (
         <Route
