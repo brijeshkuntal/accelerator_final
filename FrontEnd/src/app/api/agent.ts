@@ -39,11 +39,11 @@ axiosInstance.interceptors.request.use(async (config: any) => {
       config.headers.Authorization = `Bearer ${access}`;
     }
   } else {
-    /* const oktaTokenStorage: any = JSON.parse(
+    const oktaTokenStorage: any = JSON.parse(
       localStorage.getItem("okta-token-storage") || ""
     );
-    if (oktaTokenStorage.accessToken) 
-      config.headers.Authorization = `Bearer ${oktaTokenStorage.accessToken.accessToken}`; */
+    if (oktaTokenStorage.accessToken)
+      config.headers.Authorization = `Bearer ${oktaTokenStorage.accessToken.accessToken}`;
   }
   return config;
 });

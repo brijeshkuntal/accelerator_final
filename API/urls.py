@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from app_layer.views.employees import EmployeeDetail, EmployeeList, get_users, get_task_list, update_employee_task
+from app_layer.views.employees import EmployeeDetail, EmployeeList
 from django.views.decorators.csrf import csrf_exempt
 from app_layer.views.user_register import UserRegistrationView
 from app_layer.views.user_login import UserLoginView
@@ -23,10 +23,10 @@ from app_layer.views.user_login import UserLoginView
 # GraphQLView.graphiql_template = "graphene_graphiql_explorer/graphiql.html"
 
 urlpatterns = [
-    path("employees/", get_users),
-    path("tasklist/", get_task_list),
-    path("update_employee/", update_employee_task),
-    path('create_employee/', EmployeeList.as_view()),
+    # path("employees/", get_users),
+    # path("tasklist/", get_task_list),
+    # path("update_employee/", update_employee_task),
+    path('employees/', EmployeeList.as_view()),
     path('register_user/', UserRegistrationView.as_view()),
     path('user_login/', UserLoginView.as_view()),
     path('employee/<int:pk>/', EmployeeDetail.as_view()),

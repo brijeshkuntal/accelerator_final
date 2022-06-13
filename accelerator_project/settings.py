@@ -45,6 +45,7 @@ TENANT_APPS = [
     'django.contrib.admin',
     "django.contrib.auth",
     "rest_framework",
+    # 'okta_oauth2.apps.OktaOauth2Config',
 ]
 
 INSTALLED_APPS = [
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
     'app_layer',
     'django_filters',
     'rest_framework_simplejwt',
+    # 'okta_oauth2.apps.OktaOauth2Config',
 ]
 
 TENANT_MODEL = "multitenant_app.Client"
@@ -79,8 +81,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'okta_oauth2.middleware.OktaMiddleware',
 ]
-#
+
 # OKTA_AUTH = {
 #     "ORG_URL": "https://dev-56353795-admin.okta.com/",
 #     "ISSUER": "https://dev-56353795-admin.okta.com/oauth2/default",
@@ -168,16 +171,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+# }
 
-SIMPLE_JWT = {
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY
-}
+# SIMPLE_JWT = {
+#     'ALGORITHM': 'HS256',
+#     'SIGNING_KEY': SECRET_KEY
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -210,7 +213,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
 #     "graphql_jwt.backends.JSONWebTokenBackend",
 #     "graphql_auth.backends.GraphQLAuthBackend",
-    "django.contrib.auth.backends.ModelBackend",
+#     "django.contrib.auth.backends.ModelBackend",
+    # "okta_oauth2.backend.OktaBackend",
 ]
 
 # Auth User Model
@@ -230,6 +234,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 SEND_ACTIVATION_EMAIL = False
 CORS_ALLOW_ALL_ORIGINS = True
+
 # CORS_ALLOW_CREDENTIALS = True
 # CORS_ALLOW_HEADERS = ["Access-Control-Allow-Origin","accept","accept-encoding","authorization","content-type","dnt","origin","user-agent","x-csrftoken","x-requested-with",]
 # CORS_ALLOW_METHODS = ["DELETE","GET","OPTIONS","PATCH","POST","PUT",]
