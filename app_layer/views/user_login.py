@@ -16,7 +16,10 @@ def get_tokens_for_user(user):
 
 class UserLoginView(APIView):
     """
-    List all snippets, or create a new snippet.
+        This class is used to logged into user account .
+        params:
+        username- username for user. It must be unique.
+        password- password for user.
     """
     def post(self, request, format=None):
         username = request.data.get("username", None)
