@@ -9,7 +9,7 @@ import { store } from "../stores/store";
 import LoginConfigJSON from "./../../loginConfig.json";
 
 /* base url for the api requests */
-const baseUrl = "http://nagarro.test.com:8000";
+const baseUrl = "http://test.example.com:8000";
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
