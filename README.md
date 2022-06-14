@@ -13,6 +13,7 @@
 5. react application will start locally on **localhost:3000**
 6. build react application->
   **npm run build**
+  
   It will build the application and create build folder inside the directory and this build folder will be shared for deployment
 
 ########################################################################################
