@@ -21,28 +21,13 @@ def verify_token(request):
     """
     This method is used to verify the token for user.
     """
-    token = request.META.get("HTTP_AUTHORIZATION", None)
-    if not token:
+    JWT_authenticator = JWTAuthentication()
+    response = JWT_authenticator.authenticate(request)
+    if not response:
         return Response({
-            "message": "please provide access token"
+            "message": "Token can not be blank."
         }, status=status.HTTP_400_BAD_REQUEST)
-    token = token.split(" ")
-    if token[0] == "okta":
-        try:
-            loop = asyncio.new_event_loop()
-            loop.run_until_complete(okta_authentication(token[1]))
-        except Exception as e:
-            return Response({
-                "message": str(e)
-            }, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        JWT_authenticator = JWTAuthentication()
-        response = JWT_authenticator.authenticate(request)
-        if not response:
-            return Response({
-                "message": "Token can not be blank."
-            }, status=status.HTTP_400_BAD_REQUEST)
-        request.user = response[0]
+    request.user = response[0]
 
 class EmployeeList(APIView):
     """
@@ -52,7 +37,19 @@ class EmployeeList(APIView):
 
     def get(self, request, format=None):
         try:
-            verify_token(request)
+            token = request.META.get("HTTP_AUTHORIZATION", None)
+            token = token.split(" ")
+            if token[0] == "okta":
+                try:
+                    loop = asyncio.new_event_loop()
+                    loop.run_until_complete(okta_authentication(token[1]))
+                except Exception as e:
+                    print("e", e)
+                    return Response({
+                        "message": str(e)
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                verify_token(request)
             emp_obj = Employee.objects.all()
             emp_list = []
             for obj in emp_obj:
@@ -66,7 +63,19 @@ class EmployeeList(APIView):
 
     def post(self, request, format=None):
         try:
-            verify_token(request)
+            token = request.META.get("HTTP_AUTHORIZATION", None)
+            token = token.split(" ")
+            if token[0] == "okta":
+                try:
+                    loop = asyncio.new_event_loop()
+                    loop.run_until_complete(okta_authentication(token[1]))
+                except Exception as e:
+                    print("e", e)
+                    return Response({
+                        "message": str(e)
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                verify_token(request)
             serializer = EmployeeSerializer(data=request.data)
             try:
                 if serializer.is_valid():
@@ -93,7 +102,18 @@ class EmployeeDetail(APIView):
 
     def get(self, request, pk, format=None):
         try:
-            verify_token(request)
+            token = request.META.get("HTTP_AUTHORIZATION", None)
+            token = token.split(" ")
+            if token[0] == "okta":
+                try:
+                    loop = asyncio.new_event_loop()
+                    loop.run_until_complete(okta_authentication(token[1]))
+                except Exception as e:
+                    return Response({
+                        "message": str(e)
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                verify_token(request)
             emp = self.get_object(pk)
             data = {
                 "empName": emp.empName,
@@ -113,7 +133,19 @@ class EmployeeDetail(APIView):
 
     def put(self, request, pk, format=None):
         try:
-            verify_token(request)
+            token = request.META.get("HTTP_AUTHORIZATION", None)
+            token = token.split(" ")
+            if token[0] == "okta":
+                try:
+                    loop = asyncio.new_event_loop()
+                    loop.run_until_complete(okta_authentication(token[1]))
+                except Exception as e:
+                    print("e", e)
+                    return Response({
+                        "message": str(e)
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                verify_token(request)
             emp = self.get_object(pk)
             serializer = EmployeeSerializer(emp, data=request.data)
             if serializer.is_valid():
@@ -127,7 +159,19 @@ class EmployeeDetail(APIView):
 
     def delete(self, request, pk, format=None):
         try:
-            verify_token(request)
+            token = request.META.get("HTTP_AUTHORIZATION", None)
+            token = token.split(" ")
+            if token[0] == "okta":
+                try:
+                    loop = asyncio.new_event_loop()
+                    loop.run_until_complete(okta_authentication(token[1]))
+                except Exception as e:
+                    print("e", e)
+                    return Response({
+                        "message": str(e)
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                verify_token(request)
             emp = self.get_object(pk)
             emp.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
