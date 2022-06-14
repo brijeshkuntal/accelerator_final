@@ -7,6 +7,11 @@
 5. after installing all the dependency successfully, start the server using command as : **npm start**
 6. the react application will start locally on localhost:3000
 
+Note: use below command to build the react application, it will genarate the build folder in the directory. 
+      Use this build folder in deploying the application.
+      
+  **npm run build**
+
 ########################################################################################
 
 
