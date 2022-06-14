@@ -1,16 +1,18 @@
 ################### **start react application on the system** ############################
 
-1. clone the project from the git repository
-2. open the cloned project in VS Code
-3. open the terminal in the VS Code and change the directory to Frontend folder using command: **cd Frontend**
-4. when inside the Frontend folder, install the dependencies using command as: **npm install --legacy-peer-deps**
-5. after installing all the dependency successfully, start the server using command as : **npm start**
-6. the react application will start locally on localhost:3000
+1. clone the repository and open it in VS Code
+2. open terminal in VS Code and change directory to Frontend folder 
+ **cd Frontend**
+ 
+3. install the dependencies
+ **npm install --legacy-peer-deps**
 
-**Note:** use below command to build the react application, it will genarate the build folder in the directory. 
-      Use this build folder while deploying the application.
-      
-  **npm run build**
+4. start the server 
+ **npm start**
+
+5. react application will start locally on **localhost:3000**
+6. build react application
+ **npm run build**
 
 ########################################################################################
 
