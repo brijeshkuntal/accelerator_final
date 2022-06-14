@@ -38,6 +38,10 @@ class EmployeeList(APIView):
     def get(self, request, format=None):
         try:
             token = request.META.get("HTTP_AUTHORIZATION", None)
+            if not token:
+                return Response({
+                    "message": "Token can not be null."
+                }, status=status.HTTP_400_BAD_REQUEST)
             token = token.split(" ")
             if token[0] == "okta":
                 try:
@@ -64,6 +68,10 @@ class EmployeeList(APIView):
     def post(self, request, format=None):
         try:
             token = request.META.get("HTTP_AUTHORIZATION", None)
+            if not token:
+                return Response({
+                    "message": "Token can not be null."
+                }, status=status.HTTP_400_BAD_REQUEST)
             token = token.split(" ")
             if token[0] == "okta":
                 try:
@@ -103,6 +111,10 @@ class EmployeeDetail(APIView):
     def get(self, request, pk, format=None):
         try:
             token = request.META.get("HTTP_AUTHORIZATION", None)
+            if not token:
+                return Response({
+                    "message": "Token can not be null."
+                }, status=status.HTTP_400_BAD_REQUEST)
             token = token.split(" ")
             if token[0] == "okta":
                 try:
@@ -134,6 +146,10 @@ class EmployeeDetail(APIView):
     def put(self, request, pk, format=None):
         try:
             token = request.META.get("HTTP_AUTHORIZATION", None)
+            if not token:
+                return Response({
+                    "message": "Token can not be null."
+                }, status=status.HTTP_400_BAD_REQUEST)
             token = token.split(" ")
             if token[0] == "okta":
                 try:
@@ -160,6 +176,10 @@ class EmployeeDetail(APIView):
     def delete(self, request, pk, format=None):
         try:
             token = request.META.get("HTTP_AUTHORIZATION", None)
+            if not token:
+                return Response({
+                    "message": "Token can not be null."
+                }, status=status.HTTP_400_BAD_REQUEST)
             token = token.split(" ")
             if token[0] == "okta":
                 try:
