@@ -1,4 +1,4 @@
-################### start react application on the system ############################
+################### **start react application on the system** ############################
 
 1. clone the project from the git repository
 2. open the cloned project in VS Code
@@ -7,15 +7,15 @@
 5. after installing all the dependency successfully, start the server using command as : **npm start**
 6. the react application will start locally on localhost:3000
 
-Note: use below command to build the react application, it will genarate the build folder in the directory. 
-      Use this build folder in deploying the application.
+**Note:** use below command to build the react application, it will genarate the build folder in the directory. 
+      Use this build folder while deploying the application.
       
   **npm run build**
 
 ########################################################################################
 
 
-########## deploy the application on the server ########################################
+########## **deploy the application on the server** ########################################
 
 
 1. Download and copy nginx to C:/.
