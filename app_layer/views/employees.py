@@ -21,7 +21,11 @@ def verify_token(request):
     """
     This method is used to verify the token for user.
     """
-    token = request.META.get("HTTP_AUTHORIZATION")
+    token = request.META.get("HTTP_AUTHORIZATION", None)
+    if not token:
+        return Response({
+            "message": "please provide access token"
+        }, status=status.HTTP_400_BAD_REQUEST)
     token = token.split(" ")
     if token[0] == "okta":
         try:
