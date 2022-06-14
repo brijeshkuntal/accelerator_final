@@ -43,7 +43,7 @@ axiosInstance.interceptors.request.use(async (config: any) => {
       localStorage.getItem("okta-token-storage") || ""
     );
     if (oktaTokenStorage.accessToken)
-      config.headers.Authorization = `Bearer ${oktaTokenStorage.accessToken.accessToken}`;
+      config.headers.Authorization = `okta ${oktaTokenStorage.accessToken.accessToken}`;
   }
   return config;
 });
