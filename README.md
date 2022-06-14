@@ -1,3 +1,18 @@
+################### start react application on the system ############################
+
+1. clone the project from the git repository
+2. open the cloned project in VS Code
+3. open the terminal and change the directory to Frontend folder using command: **cd Frontend**
+4. when inside the Frontend folder, install the dependencies using command as: **npm install --legacy-peer-deps**
+5. after installing all the dependency successfully, start the server using command as : **npm start**
+6. the react application will start locally on localhost:3000
+
+########################################################################################
+
+
+########## deploy the application on the server ########################################
+
+
 1. Download and copy nginx to C:/.
 
 2. Install Python 3.7 in C:/Python37 and install all dependencies from requirement.txt.
@@ -29,3 +44,5 @@
 8. Open a terminal at C:/nginx/ and run nginx.exe -t to check files, and if everything is successful run nginx.exe to start the server
 
 9. Open a web browser and navigate to http://localhost
+
+#################################################################################
