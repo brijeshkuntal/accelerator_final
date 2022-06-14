@@ -16,16 +16,18 @@ def verify_token(request):
     """
     This method is used to verify the token for user.
     """
-    token = request.META.get("HTTP_AUTHORIZATION")
-    jwt_verifier = AccessTokenVerifier(issuer='https://dev-56353795.okta.com/oauth2/default', audience='api://default')
-    result = jwt_verifier.verify(token.split(" ")[1])
-    # JWT_authenticator = JWTAuthentication()
-    # response = JWT_authenticator.authenticate(request)
-    # if not response:
-    #     return Response({
-    #         "message": "Token can not be blank."
-    #     }, status=status.HTTP_400_BAD_REQUEST)
-    # request.user = response[0]
+    try:
+        token = request.META.get("HTTP_AUTHORIZATION")
+        jwt_verifier = AccessTokenVerifier(issuer='https://dev-56353795.okta.com/oauth2/default', audience='api://default')
+        result = jwt_verifier.verify(token.split(" ")[1])
+    except Exception as e:
+        JWT_authenticator = JWTAuthentication()
+        response = JWT_authenticator.authenticate(request)
+        if not response:
+            return Response({
+                "message": "Token can not be blank."
+            }, status=status.HTTP_400_BAD_REQUEST)
+        request.user = response[0]
 
 class EmployeeList(APIView):
     """
