@@ -6,18 +6,18 @@ import { sleep } from "../common/utils/common";
 import { Employee } from "../models/employee";
 import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
-import LoginConfigJSON from "./../../loginConfig.json";
+import AppConfigJSON from "./../../appConfig.json";
 
 /* base url for the api requests */
-const baseUrl = "http://test.example.com:8000";
+const { baseURL, isOktaLoginEnabled } = AppConfigJSON;
 
 const axiosInstance = axios.create({
-  baseURL: baseUrl,
+  baseURL: baseURL,
 });
 
 /*request interceptor method => to be run before sending each api request*/
 axiosInstance.interceptors.request.use(async (config: any) => {
-  if (!LoginConfigJSON.isOktaLoginEnabled) {
+  if (!isOktaLoginEnabled) {
     const user = store.commonStore.user;
     if (user) {
       let { access, refresh } = user;
@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(async (config: any) => {
      if expired, getting new jwt token  */
       if (new Date() > new Date(decodeJWT.exp * 1000)) {
         const refreshResponse = await axios.post(
-          `${baseUrl}/api/token/refresh/`,
+          `${baseURL}/api/token/refresh/`,
           { refresh }
         );
         access = refreshResponse.data.access;

@@ -6,25 +6,26 @@ import { useStore } from "../../app/stores/store";
 import LoginForm from "../users/LoginForm";
 import RegisterForm from "../users/RegisterForm";
 import { withOktaAuth } from "@okta/okta-react";
-import LoginConfigJSON from "./../../loginConfig.json";
+import AppConfigJSON from "./../../appConfig.json";
 
 export default observer(
   withOktaAuth(function HomePage(props) {
     const { userStore, modalStore } = useStore();
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const { isOktaLoginEnabled } = LoginConfigJSON;
+    const { isOktaLoginEnabled } = AppConfigJSON;
+    const { authState, oktaAuth } = props;
 
     const login = async () => {
-      await props.oktaAuth.signInWithRedirect();
+      await oktaAuth.signInWithRedirect();
     };
 
     useEffect(() => {
       if (isOktaLoginEnabled) {
-        setIsLoggedIn(props.authState?.isAuthenticated || false);
+        setIsLoggedIn(authState?.isAuthenticated || false);
       } else {
         setIsLoggedIn(userStore.isLoggedIn);
       }
-    }, [props.authState, userStore.isLoggedIn, isOktaLoginEnabled]);
+    }, [authState, userStore.isLoggedIn, isOktaLoginEnabled]);
 
     return (
       <Segment inverted textAlign="center" vertical className="masthead">

@@ -3,30 +3,31 @@ import { NavLink } from "react-router-dom";
 import { Button, Container, Menu, Dropdown } from "semantic-ui-react";
 import { useStore } from "../stores/store";
 import { withOktaAuth } from "@okta/okta-react";
-import LoginConfigJSON from "./../../loginConfig.json";
+import AppConfigJSON from "./../../appConfig.json";
 import { useEffect, useState } from "react";
 
 export default observer(
   withOktaAuth(function NavBar(props) {
-    const { isOktaLoginEnabled } = LoginConfigJSON;
+    const { isOktaLoginEnabled } = AppConfigJSON;
     const [displayName, setDisplayName] = useState<string>();
+    const { authState, oktaAuth } = props;
 
     const {
-      userStore: { user, logout },
+      userStore: { logout },
       commonStore,
     } = useStore();
 
     const logoutUser = async () => {
-      await props.oktaAuth.signOut();
+      await oktaAuth.signOut();
     };
 
     useEffect(() => {
-      if (isOktaLoginEnabled) {
-        props.oktaAuth.getUser().then((info) => setDisplayName(info.name));
+      if (isOktaLoginEnabled && authState?.isAuthenticated) {
+        oktaAuth.getUser().then((info) => setDisplayName(info.name));
       } else {
         setDisplayName(commonStore.user?.displayName);
       }
-    }, [commonStore.user, props.oktaAuth]);
+    }, [commonStore.user, oktaAuth, authState]);
 
     return (
       <Menu inverted fixed="top">
@@ -49,10 +50,7 @@ export default observer(
             />
           </Menu.Item>
           <Menu.Item position="right">
-            <Dropdown
-              pointing="top left"
-              text={/* commonStore.user?.displayName */ displayName}
-            >
+            <Dropdown pointing="top left" text={displayName}>
               <Dropdown.Menu>
                 <Dropdown.Item
                   onClick={!isOktaLoginEnabled ? logout : logoutUser}
