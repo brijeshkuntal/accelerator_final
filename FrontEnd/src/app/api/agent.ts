@@ -106,7 +106,7 @@ const Employees = {
   list: () => requests.get<Employee[]>("/employees/"),
   details: (id: number) => requests.get<Employee>(`/employee/${id}/`),
   create: (employee: Employee) =>
-    requests.post<void>("/create_employee/", employee),
+    requests.post<void>("/employees/", employee),
   update: (employee: Employee) =>
     requests.put<void>(`/employee/${employee.empID}/`, employee),
   delete: (id: number) => requests.del<void>(`/employee/${id}/`),
