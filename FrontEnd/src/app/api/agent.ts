@@ -103,13 +103,13 @@ const requests = {
 
 /* api for employee crud operations */
 const Employees = {
-  list: () => requests.get<Employee[]>("/employees/"),
-  details: (id: number) => requests.get<Employee>(`/employee/${id}/`),
+  list: () => requests.get<Employee[]>("/api/employees/"),
+  details: (id: number) => requests.get<Employee>(`/api/employee/${id}/`),
   create: (employee: Employee) =>
-    requests.post<void>("/create_employee/", employee),
+    requests.post<void>("/api/employees/", employee),
   update: (employee: Employee) =>
-    requests.put<void>(`/employee/${employee.empID}/`, employee),
-  delete: (id: number) => requests.del<void>(`/employee/${id}/`),
+    requests.put<void>(`/api/employee/${employee.empID}/`, employee),
+  delete: (id: number) => requests.del<void>(`/api/employee/${id}/`),
 };
 
 /* api for user login and register */
