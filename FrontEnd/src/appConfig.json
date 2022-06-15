@@ -1,4 +1,4 @@
 {
 "isOktaLoginEnabled":true,
-"baseURL":"http://nagarro.test.com:8000"
+"baseURL":"http://test.example.com:8000"
 }

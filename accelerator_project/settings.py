@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-o&h42fzsfp$sag_aplpl$f@f60$dk9x1@f1l0f7mi2b#^d&3!1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
 
@@ -213,7 +213,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
 #     "graphql_jwt.backends.JSONWebTokenBackend",
 #     "graphql_auth.backends.GraphQLAuthBackend",
-#     "django.contrib.auth.backends.ModelBackend",
+    "django.contrib.auth.backends.ModelBackend",
     # "okta_oauth2.backend.OktaBackend",
 ]
 
@@ -235,7 +235,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SEND_ACTIVATION_EMAIL = False
 CORS_ALLOW_ALL_ORIGINS = True
 
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 # CORS_ALLOW_HEADERS = ["Access-Control-Allow-Origin","accept","accept-encoding","authorization","content-type","dnt","origin","user-agent","x-csrftoken","x-requested-with",]
 # CORS_ALLOW_METHODS = ["DELETE","GET","OPTIONS","PATCH","POST","PUT",]
 # CORS_REPLACE_HTTPS_REFERER=True
