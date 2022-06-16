@@ -30,30 +30,32 @@ function OktaAuthPage(props: Props) {
 
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/login/callback" component={LoginCallback} />
-      <SecureRoute
-        path={"/(.+)"}
-        render={() => (
-          <>
-            <NavBar />
-            <Container style={{ marginTop: "7em" }}>
-              <Switch>
-                <Route exact path="/employee" component={EmpDashboard} />
-                <Route path="/employee/:id" component={EmpDetails} />
-                <Route
-                  key={location.key}
-                  path={["/createEmployee", "/manage/:id"]}
-                  component={EmpForm}
-                />
-                <Route path="/empdel/:id" component={EmpDelete} />
-                {/* <Route path="/login" component={LoginForm} /> */}
-                <Route component={NotFound} />
-              </Switch>
-            </Container>
-          </>
-        )}
-      />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/login/callback" component={LoginCallback} />
+        <SecureRoute
+          path={"/(.+)"}
+          render={() => (
+            <>
+              <NavBar />
+              <Container style={{ marginTop: "7em" }}>
+                <Switch>
+                  <Route exact path="/employee" component={EmpDashboard} />
+                  <Route path="/employee/:id" component={EmpDetails} />
+                  <Route
+                    key={location.key}
+                    path={["/createEmployee", "/manage/:id"]}
+                    component={EmpForm}
+                  />
+                  <Route path="/empdel/:id" component={EmpDelete} />
+                  {/* <Route path="/login" component={LoginForm} /> */}
+                  <Route component={NotFound} />
+                </Switch>
+              </Container>
+            </>
+          )}
+        />
+      </Switch>
     </Security>
   );
 }
