@@ -15,6 +15,7 @@ def get_tokens_for_user(user):
         'access': str(refresh.access_token),
     }
 
+
 @Mediator.handler
 class UserLoginHandler:
     """

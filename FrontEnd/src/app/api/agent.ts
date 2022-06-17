@@ -114,9 +114,9 @@ const Employees = {
 
 /* api for user login and register */
 const Account = {
-  login: (user: UserFormValues) => requests.post<User>("/user_login/", user),
+  login: (user: UserFormValues) => requests.post<User>("/api/user_login/", user),
   register: (user: UserFormValues) =>
-    requests.post<User>("/register_user/", user),
+    requests.post<User>("/api/register_user/", user),
 };
 
 const agent = {
