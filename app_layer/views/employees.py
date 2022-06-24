@@ -20,7 +20,7 @@ import asyncio
 
 
 async def okta_authentication(token):
-    jwt_verifier = AccessTokenVerifier(issuer='https://dev-56353795.okta.com/oauth2/default', audience='api://default')
+    jwt_verifier = AccessTokenVerifier(issuer='https://{okta_domain}/oauth2/default', audience='api://default')
     await jwt_verifier.verify(token)
 
 
